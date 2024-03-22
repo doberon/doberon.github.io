@@ -4,74 +4,169 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Suma</title>
+		<title>Sumas y Restas</title>
 		<style>
 			.a1{
 			font-size:8vw;
 			text-align:center;
 			}
+			
+			.a2{
+			font-size:3vw;
+			text-align:center;
+			color:#99482b;
+			}
+			
+			.a3{
+			width:50px;
+			}
 		</style>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script>
-			$(document).on('keypress',function(e) {
-				if(e.which == 13) {
-					$("#calcular").click();
-				}
-				if(e.which == 45) {
-					$("#operacion").focus();
-					$("#operacion").val("-");
-					$("#num2").focus();
-				}
-				if(e.which == 43) {
-					$("#operacion").focus();
-					$("#operacion").val("+");
-					$("#num2").focus();
-				}
+			
+			
+			
+			$(document).on('keypress',function(e){
+			if(e.which == 13){
+			$("#calcular").click();
+			}
+			if(e.which == 45){
+			$("#operacion").focus();
+			$("#operacion").val("-");
+			$("#num2").focus();
+			}
+			if(e.which == 43){
+			$("#operacion").focus();
+			$("#operacion").val("+");
+			$("#num2").focus();
+			}
 			});
 			
+			
+			function dibujarRegla(a, b, suma){
+			
+			const casillas=[];
+			
+			var regla="";
+			var i=1;
+			for(i=1;i<=20;i++){
+			casillas[i]="<td class='a2'>"+i+"<br><img class='a3' src='nulo.png'></td>";	
+			}
+			for(i=1;i<=a;i++){
+			casillas[i]="<td class='a2'>"+i+"<br><img class='a3' src='roja.png'></td>";		
+			}
+			if(suma){
+			for(i=(a+1);i<=(a+b);i++){
+			casillas[i]="<td class='a2'>"+i+"<br><img class='a3' src='azul.png'></td>";		
+			}	
+			}else{
+			for(i=1;i<=b;i++){
+			casillas[a-(i-1)]="<td class='a2'>"+(a-(i-1))+"<br><img class='a3' src='vacio.png'></td>";		
+			}					
+			}
+			
+			regla+="<table border='2px' style='border-style: solid;' width='100%'><tr>";
+			regla+=casillas.join("");					
+			regla+="</tr><table>";	
+			$("#regla").html(regla);
+			}
 			
 			$(document).ready(function(){
-				
-				$("#calcular").click(function(){
-					if("-"==$("#operacion").val()){
-						$("#sum").val(Number($("#num1").val()) - Number($("#num2").val()));
-					}
-					else{
-						$("#sum").val(Number($("#num1").val()) + Number($("#num2").val()));	
-					}
-					$("#img1").attr("src",$("#num1").val()+".png");
-					$("#img2").attr("src",$("#num2").val()+".png");
-					$("#img3").attr("src",$("#sum").val()+".png");
-				});
+			
+			$("#calcular").click(function(){
+			var num1=Number($("#num1").val());
+			var num2=Number($("#num2").val());
+			var operacion=$("#operacion").val();
+			var sumar=true;
+			if("-"==operacion)
+			{
+			$("#sum").val(num1 - num2);
+			sumar=false;
+			}
+			else
+			{
+			$("#sum").val(num1 + num2);
+			}
+			$("#img1").attr("src",$("#num1").val()+".png");
+			$("#img2").attr("src",$("#num2").val()+".png");
+			$("#img3").attr("src",$("#sum").val()+".png");
+			dibujarRegla(num1, num2, sumar);
 			});
-		</script>		
-		
-	</head>
-	<body background="madera.jpg">
-		
-		<center>
-			<form name="form">
-				<input type="reset" value='Limpiar'>
-				<table>
+			
+			//===============
+			
+			$("#parcial").click(function(){
+			var num1=Number($("#num1").val());
+			var num2=0;
+			var operacion=$("#operacion").val();
+			var sumar=true;
+			if("-"==operacion)
+			{
+			$("#sum").val("");
+			sumar=false;
+			}
+			else{
+			$("#sum").val("");
+		}
+		$("#img1").attr("src",$("#num1").val()+".png");
+		$("#img2").attr("src",$("#num2").val()+".png");
+		$("#img3").attr("src","");
+		dibujarRegla(num1, num2, sumar);
+	});
+	
+	//
+	
+		$("#parcial2").click(function(){
+			var num1=Number($("#num1").val());
+			var num2=Number($("#num2").val());
+			var operacion=$("#operacion").val();
+			var sumar=true;
+			if("-"==operacion)
+			{
+			$("#sum").val("");
+			sumar=false;
+			}
+			else{
+			$("#sum").val("");
+		}
+		$("#img1").attr("src",$("#num1").val()+".png");
+		$("#img2").attr("src",$("#num2").val()+".png");
+		$("#img3").attr("src","");
+		dibujarRegla(num1, num2, sumar);
+	});
+	
+});
+</script>		
+
+</head>
+<body background="madera.jpg">
+	
+	<center>
+		<form name="form">
+			<input type="reset" class="a2" value='Limpiar'>
+			<input type="button" name="parcial" id="parcial" class="a2" value='paso 1'>
+			<input type="button" name="parcial2" id="parcial2" class="a2" value='paso 2'>
+			<table>
 				<tr>
-				<td><input type="text" class="a1" name="num1" id="num1" style="color:#fb3f3d"  size="2" /></td>
-				<td><select name="operacion"  id="operacion" class="a1"  size="1"><option selected="selected" value="+">+</option><option value="-">-</option></select></td>
-				<td><input type="text" class="a1"  name="num2" id="num2" style="color:#0583cd" size="2" /></td>
-				<td><input class="a1"  name="calcular"  id="calcular" type="button" value="=" /></td>
-				<td><input class="a1"  type="text" name="sum" id="sum" readonly size="2" /></td>
-			</tr>
-			<tr>
-				<td align="center"><img id="img1" src="" /></td>
-				<td></td>
-				<td align="center"><img id="img2" src="" /></td>
-				<td></td>
-				<td align="center"><img id="img3" src="" /></td>
-			</tr>	
+					<td><input type="number" class="a1" name="num1" id="num1" style="color:#fb3f3d; background-color:transparent;"  size="2" min="0" max="20" /></td>
+					<td><select name="operacion"  id="operacion" class="a1"  size="1"><option selected="selected" value="+">+</option><option value="-">-</option></select></td>
+					<td><input type="number" class="a1"  name="num2" id="num2" style="color:#0583cd; background-color:transparent;" size="2"  min="0" max="20" /></td>
+					<td><input class="a1"  name="calcular"  id="calcular" type="button" value="=" /></td>
+					<td><input class="a1"  type="text" name="sum" id="sum" readonly size="2" style="background-color:transparent;" /></td>
+				</tr>
+				<tr>
+					<td align="center"><img id="img1" src="" /></td>
+					<td></td>
+					<td align="center"><img id="img2" src="" /></td>
+					<td></td>
+					<td align="center"><img id="img3" src="" /></td>
+				</tr>	
 			</table>
-			</form>
-		</center>
-		
-		
-	</body>
+		</form>
+	</center>
+	
+	<span id="regla"></span>
+	
+</body>
 </html>		
