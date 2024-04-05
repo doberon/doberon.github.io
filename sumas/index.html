@@ -152,15 +152,26 @@
 			dibujarRegla(num1, num2, sumar);
 		});
 		
+		
+		$("#limpiar").click(function(){
+			Number($("#num1").val(""));
+			Number($("#num2").val(""));
+			$("#sum").val("");
+			dibujarRegla(0, 0, true);
+		});
+		
 	});
 </script>		
 
 </head>
 <body background="madera.jpg">
+	<a href='https://www.didax.com/apps/ten-frames/' target='_blank'>Marco de Diez</a> -
+	<a href='https://www.didax.com/math/virtual-manipulatives.html' target='_blank'>Apps</a> -
+	<a href='https://app.brainingcamp.com/manipulatives/cuisenaire-rods/YRH5VB1V' target='_blank'>brainingcamp</a>
 	
 	<center>
 		<form name="form">
-			<input type="reset" class="a2" value='Limpiar'>
+			<input type="button" name="limpiar" id="limpiar" class="a2" value='limpiar'>
 			<input type="button" name="parcial" id="parcial" class="a2" value='paso 1'>
 			<input type="button" name="parcial2" id="parcial2" class="a2" value='paso 2'>
 			<table>
