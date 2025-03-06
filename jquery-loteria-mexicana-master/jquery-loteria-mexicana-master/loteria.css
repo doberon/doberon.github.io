@@ -1,0 +1,27 @@
+.carton__baraja{
+  position: absolute;
+  max-width: 300px;
+  z-index: 1000;
+  right: 0;
+  top: 0;
+}
+
+.carton__loteria {
+  display:inline-block;
+  position: relative;
+}
+
+.carton__loteria img{
+  width: 200px;
+  height: 360px;
+}
+
+.carton__loteria > div{
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  display: none;
+}

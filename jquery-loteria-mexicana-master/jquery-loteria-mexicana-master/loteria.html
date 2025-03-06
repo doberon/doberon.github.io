@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>Loteria Mexicana</title>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<style>
+			
+			.carton__baraja{
+			position: absolute;
+			height: 300px;
+			z-index: 1000;
+			right: 0;
+			top: 0;
+			}
+			
+			.carton__loteria {
+			display:inline-block;
+			position: relative;
+			}
+			
+			.carton__loteria img{
+			width: 150px;
+			height: 150px;
+			}
+			
+			.carton__loteria > div{
+			background-color: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			top: 0;
+			display: none;
+			}
+			
+			
+		</style>
+	</head>
+	
+	<body style='background-color: #282a35'>
+		
+		<div class="container-fluid">
+			<div class="row">
+				
+				<div class="col-md-1"></div>
+				
+				<div class="col-md-2" class="text-center">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria" >
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				
+				<div class="col-md-1">
+					
+				</div>
+				
+				<div class="col-md-2">
+					<img class="carton__baraja" src="baraja/bg_card.jpg" />
+				</div>
+				
+			</div>
+			<div class="row">
+				
+				<div class="col-md-1"></div>
+				
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				
+				<div class="col-md-1"></div>
+				
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				
+				<div class="col-md-1"></div>
+				
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="carton__loteria">
+						<img class="img-responsive" />
+						<div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" >
+			
+			
+			
+			function mezclar(array) { 
+				const shuffled = array.slice(); 
+				let currentIndex = shuffled.length; 
+				let temporaryValue, randomIndex; 
+				while (currentIndex !== 0) { 
+					randomIndex = Math.floor(Math.random() * currentIndex); 
+					currentIndex -= 1; 
+					temporaryValue = shuffled[currentIndex]; 
+					shuffled[currentIndex] = shuffled[randomIndex]; 
+					shuffled[randomIndex] = temporaryValue; 
+				}
+				return shuffled; 
+			};
+			
+			var cartas=[1];
+			for(i=2;i<54;i++){
+				cartas.push((i));	
+			}
+			var cartas2=mezclar(cartas);
+			var cartas3=mezclar(cartas2);
+			
+			var contador=1;
+			function obtenerCarta(){
+				indice=cartas2[contador];
+				contador=contador+1;
+				return indice;
+			}
+			
+			var contador2=1;
+			function obtenerCarta2(){
+				indice2=cartas3[contador2];
+				contador2=contador2+1;
+				return indice2;
+			}
+			
+			
+			$(document).ready(function () {
+				function getRandomInteger(min, max) {
+					var floatingPoint = Math.random();
+					var floatingPointInRange = floatingPoint * (max - min + 1) + min;
+					return Math.floor(floatingPointInRange);
+				}
+				
+				//para la baraja
+				$('.carton__baraja').click(function() {
+					$(this).attr('src', 'baraja/' + obtenerCarta2() + '.jpg');
+				});
+				
+				$('.carton__loteria').each(function () {
+					//$(this).children('img').attr('src', 'baraja/' + getRandomInteger(2, 54) + '.jpg');
+					$(this).children('img').attr('src', 'baraja/' + obtenerCarta() + '.jpg');
+					$(this).children('div').append('<img src="frijol.png">');
+				});
+				
+				$('.carton__loteria > img').click(function () {
+					$(this).siblings().show();
+				});
+				
+				$('.carton__loteria > div').click(function () {
+					$(this).hide();
+				});
+				
+			});	
+			
+		</script>
+	</body>
+	
+</html>
